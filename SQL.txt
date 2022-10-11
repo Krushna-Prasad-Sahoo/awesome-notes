@@ -1,0 +1,712 @@
+SQL TRAINING:
+
+mysql, oracle:10g/11g/12c/oracle 18g/oracle 19g; teradata;
+sql & pl/sql
+open source: mysql,postgresql,mariadb
+
+tupples have attributes; records have field; rows have columns
+
+TCL: Transaction control language: commit, rollback, savepoint
+
+https://www.oracle.com/database/technologies/database12c-win64-downloads.html
+https://www.oracle.com/database/technologies/xe-prior-releases.html
+
+NOTE: 
+A table may or may not have constraints.
+
+DATA TYPES:
+
+CHAR: Size-1 to 255
+VARCHAR: expired size(1-2000)
+VARCHAR2:size(1-4000)
+number(p,s):p-range of numbers the data can hold;s-number after decimal
+DATE: fixed size of 7 bytes
+
+every query should end by ;
+big queries can be broken into many lines.
+write all queries in lowercase
+
+oracle errors are called ora-errors and there are 64000 errors in oracle
+
+Question: create salesman table
+
+QL> insert into salespeople values
+
+  2      (&snum, '&sname', '&city', &comm);
+
+WAQ to print all sales people who are yet to get posted?
+Note:
+rollback is the opposite of commit and commited work 
+cannot be rollbacked. Rollback removes all the changes 
+if the work is not commited
+
+In Oracle autocommit is by default off.
+SQL> set autocommit on;
+
+'In' Clause: used for fetching the records from 1000 of records in a faster way.
+'In' Clause is case sensitive in Oracle and can be used on all data types
+
+Q: WAQ to print all salespeople who are posted in London, new york, Mumbai, Bangalore and Paris?
+
+SQL> select *from salespeople where city in ('London', 'New York', 'Mumbai');
+
+Q: WAQ print all salespeople who are not posted in London, Paris, Mumbai?
+
+SQL> select *from salespeople where city not in ('London', 'New York', 'Mumbai');
+
+DELETE is used to delete tuples provided you have permission to delete records provided its a master table or independent table.
+Delete command can be rollbacked if they are not Commited.
+Dropped table cannot be rollbacked.
+
+String Functions:
+
+WAQ to display sales person city in upper case?
+SQL> select snum, upper(city),comm from salespeople;
+
+For adding headings
+
+SQL> select upper('proud indian') "Indi" from dual;
+SQL> select upper('proud indian') India from dual;
+SQL> select upper('proud indian') India_Puja from dual;
+
+To print in lower case use 'lower' instead of 'upper'
+
+Initcap sets first letter of every word in caps.
+SQL> select initcap('PROUD INDIAN') India_Puja from dual;
+
+CONSTRAINTS:
+
+1. CHECK: used for giving condition on attributes. used on numeric values.
+
+SQL> create table employee(empid number(5) primary key, emp_name varchar2(22) not null, doj date,basic number(7) check (basic<=24000));
+
+LIKE Operator: case sensitive in oracle
+
+SQL>  select *from salespeople where city like 'L%';
+
+WAQ to print sname,snum,city from salespeople with id 1009,333,1027,1019,103?
+
+SQL> select snum,sname,city from salespeople where snum in(1029,333,1027,1001,1,5);
+
+WAQ to print salespeople but not those in 'Mumbai','London','New York'
+
+SQL> select snum,sname,city from salespeople where city not in('Mumbai','New York','London');
+
+NOTE: when records are inserted, updated or deleted, 
+it should be commmitted if changed are to be made permanent.
+
+To update two tuples at same time:
+SQL>update salespeople set city='London', comm=8000.99 where snum=9;
+
+Note: default constraint is used generally with char data type.
+
+Note: TRUNCATE TABLE command is used to delete complete data from an existing table.
+
+NOTE: Truncate deletes faster than 'Delete' command and once truncated data cannot be rollbacked by any way even if commit work is done;
+Truncate will not effect table indexes,dependencies and triggers.
+
+Note: Dual table is a special table in Oracle which belongs to the schema of SYS User but can be used and is 
+accessable to all users.
+
+ALTER TABLE: it is used to modify the structure of a table if we have permission to do that. You can add, modify
+delete atrributes for a table provided you have permission to do it.
+
+SQL> alter table salespeople add doj date;      //new column is added
+SQL> alter table salespeople drop column doj;  //drop the added column
+SQL> alter table salespeople modify basic number(10,3);//increase the size of an attribute
+ 
+updating of altered table can be done if permission is given.
+
+Length() prints the length of string from left to right including special symbols and spaces.
+Ltrim() removes extreme left end blank spaces from string in the output if there.
+Rtrim() removes right trailing blank spaces from string in the output if there.
+trim() removes both right and left trailing blank spaces together if present.
+lpad() is a string func. which left pads the string with the symbol given by the user provided the actual size of the string is less than the
+size mentioned in quesry, used for sql reporting.
+
+Example of lpad(): select lpad('    Latest version of oracle is 19g      ',78,'#') from dual;
+
+rpad(): is a string func. which right pads the string with the symbol given by the user provided the actual size of the string is less than the
+size mentioned in quesry, used for sql reporting.
+
+rpad() example: select rpad('    Latest version of oracle is 19g      ',78,'#') from dual;
+nested length & trim:  SQL> select length(trim('    Latest version of oracle is 19g      ')) from dual;
+
+substr(): It will fetch a part of the string from the mentioned place in the query.
+
+Example of substr(): select substr('Latest version of oracle is 19g',7,15) from dual;
+
+Save point: It will mark the current position of the starting of a transaction. Rollback will recover entire changes
+but save poit will recover only those needed that is partial rollback. Savepoint can be broken up in different parts
+at different times depending on oracle work. We can have 4 to 5 savepoints a day but 4 is recommended. 
+It should only be used when your process needes to be rollbacked part of transaction
+in a days time. 
+
+example: savepoint a;
+        insert into salespeople values(100,'Jaya', 'Paris', 10000);
+         insert into salespeople values(101,'Lucy', 'Paris', 10000);
+         savepoit b;
+        update salespeople set comm=comm+4444 where city='London';
+      rollback to b;
+
+Foreign Key: Its ia a primary key it another table. Table containing foreign key is called child table.
+FK & PK should have same name
+Both should be of same data type and same size.
+Integrity error comes when we try to enter foreign key which is not in master table
+
+Example: create table customer (cnum number(5)primary key, cname char(28), city varchar2(20),snum number(5) references salespeople(snum));
+
+snum is the FK which connects customer table to the salespeople table
+
+
+ORDER BY: It is used for sorting the data either in ascending or descending. But ascending order is the default
+order. Any attributes can be sorted.
+
+Example: select *from salespeople order by city desc;// Null is considered the maximum value
+         select sname, city,comm from salespeople  where city like 'M%' or city like 'P%';
+         select sname, city,comm from salespeople  where comm not like '___';
+
+BETWEEN CLAUSE: It is used to print records within range. 
+Example:    select sname, city,comm from salespeople  where comm between 1000 and 40000;
+
+Date functiontion: select current_date from dual;//Current Date
+               select sysdate+7 from dual;
+Months_between(): select months_between(sysdate,'09-feb-1998') from dual;
+LAST_DAY(): select last_day(sysdate) from dual;
+Extract(): select extract( year from sysdate) from dual;
+ select extract( month from sysdate) from dual;
+NEXT_DAY: SQL> select next_day(sysdate,1) from dual; //prints day of week where 1-sunday,7-saturday
+
+NEXT_DAY(
+---------
+27-SEP-20
+
+Round(): rounds off to nearest number.
+        select round( 444.56,0) from dual;
+        select round(489.50,1) from dual;
+TO_CHAR():select to_char(2345,'$9999')from dual;// converts numbers to characters
+TO_DATE(): select to_date('01 july,2020','dd mm,yy')from dual;
+
+DISTICT: it fetches only unique values from the mentioned columns. It is applicable on all attributes except
+PK(Primary Key). It is used with group by clause.
+
+nvl():It replaces NULL values with mentioned values.It works on all data types.
+select snum,sname,city, nvl(comm,0) from salespeople;
+Adding Headings:
+select snum,sname,city, nvl(comm,0) comm from salespeople;
+
+WAQ salespeople where name in upper case, city in lower case, comm between 500 and 4500.5.
+
+waq to create a employee table: empno(PK)7(start with 7), fname(not null)16, lname(17), basic(15), doj, city(20), designation(char 18), project(char 10)
+waq add 11 records using auto commited
+designations should be(Manager, Programmer, Tester, Oracle Developer, Cloud Technologist)
+waq to print all employees who are posted in a city ending with N,I or K and use rtrim()
+
+waq to increase the size of lname() to 20 characters and check has the size increased:SQL>alter table employee1 modify lname varchar2(20); 
+
+auto commit should be on: waq to update all employees salary by 9000 for managers.:SQL>set autocommit on;  SQL>update employee1 set basic =basic+9000;
+
+waq to display all employees working as manager but city attribute remove trim(): SQL>select empno,fname,lname,basic,doj,trim(city),designation from employee1 where designation='Manager';
+
+waq to display empno,upper(fname),proper(designation) and salary employees whose salary <=19000 and >=890000: SQL>select empno,upper(fname),initcap(designation) from employee1 where basic<=19000 or basic>=40000;
+
+waq to display all records, designation in descending order.SQL> select *from employee1 order by empno desc;
+
+waq to change details of empno 7007 who has been promoted to Oracle Technologist & posting in new york
+increase salary by 18000 and make changes permanent.: SQL>update employee1 set designation='OracleTechnologist',city='New York',basic=basic+18000 where empno=7007;
+
+off auto commit and remove all tuples who are working as testers.SQL>set autocommit off;
+SQL> delete from employee1 where designation='Tester';
+
+waq to check have the testers been deleted:SQL> select *from employee1 where designation='Testers';
+
+waq bring back deleted testers and add them permanently. SQL>rollback;
+                                                         sql> commit work;
+
+SQL HIRERCHY:
+
+1. select attribute1,attribute2.......from table 1,table 2 //fetch columns as per requirements from 1 or 2 tables(join)
+2. where clause //fetching records based on conditions
+3. group by //for grouping
+4. having clause //condition after grouping
+5. order by; // used in the last for sorting(by default ascending)Moves up the hirerchy if where,group by &having clause are not there.
+
+Note: group by cannot be used with PK.
+
+Aggregate Function / group by:
+1.sum(): SQL> select sum(comm) from salespeople;  //its used in group by function if needed
+2.max(): SQL> select max(comm) as max_incentive from salespeople; //prints the maximum value in the column
+3.min(): SQL> select min(comm) as min_incentive from salespeople; //fetches the minimum value in the column but not null value
+4.avg(): SQL> select avg(comm) as avg_incentive from salespeople; //fetches to get average value of a column but not null
+5.count(): SQL> select count(comm) as count_incentive from salespeople; //cpont skips null values
+
+waq to fetch min,max,avg of comm: SQL> select max(comm) max_incentive ,min(comm) min_incentive ,avg(comm) avg_incentive from salespeople;
+
+waq to fetch sum,min,max,avg of comm: select sum(comm) total_incentive, max(comm) max_incentive ,min(comm) min_incentive ,avg(comm) avg_incentive from salespeople;
+
+SQL> select count(distinct city) as total_cities from salespeople;// fetches distinct cities
+
+select count(snum),avg(comm),min(comm),max(comm),sum(comm) as total_cities from salespeople where city in ('London'); //use of all aggregate functions
+ rownum: used to limit no. of records we want
+select * from salespeople where rownum<=4;
+
+Group By is used to groupping records and cannot be done on PK. Aggregate func. can be used with group by.
+group by attribute should come in select
+
+SQL> select city from salespeople group by city; //Null value gets selected and select unique values
+
+SQL> select city, count(city) Number_of_Salespeople from salespeople group by city;
+
+CITY                                    NUMBER_OF_SALESPEOPLE
+--------------------------------------- ---------------------
+Mumbai                                                      2
+Kolkata                                                     2
+California                                                  2
+Pune                                                        4
+Paris                                                       4
+
+waq to get total salespeople and find total incentive earned by them.
+SQL> select city, count(city) No_of_Salespeople,sum(comm) Total_Incentive from salespeople group by city;
+
+CITY                                    NO_OF_SALESPEOPLE TOTAL_INCENTIVE
+--------------------------------------- ----------------- ---------------
+Mumbai                                                  2          137200
+Kolkata                                                 2          150000
+California                                              2            2000
+Pune                                                    4          110000
+Paris                                                   4          106000
+
+
+SQL> select city, sum(comm),max(comm), count(city) from salespeople group by city order by city;
+
+CITY                                     SUM(COMM)  MAX(COMM) COUNT(CITY)
+--------------------------------------- ---------- ---------- -----------
+California                                    2000       1000           2
+Kolkata                                     150000     100000           2
+Mumbai                                      137200      98000           2
+Paris                                       106000      39000           4
+Pune                                        110000     100000           4
+
+ Having caluse:
+
+waq to count no of salespeople city wise where city has more than one salespeople
+
+SQL> select upper(city),count(city) from salespeople group by city having count(city)>1;
+
+UPPER(CITY)                             COUNT(CITY)
+--------------------------------------- -----------
+MUMBAI                                            2
+KOLKATA                                           2
+CALIFORNIA                                        2
+PUNE                                              4
+PARIS                                             4
+
+
+SQL> select ceil(478999.09) from dual; //gives nearest highest value after rounding
+SQL> select floor(478999.09) from dual; // gives nearest least value after rounding
+
+decode(): misclleneous condition func. allows to use if,then,else statements if needed.we can have multiple if statements.
+
+SQL> select snum, sname, decode(comm, 1000,'$ 100 Rewards',20,'$ 20000 Rewards') as rewards from salespeople;
+
+JOINS: Used to combine 2 or more tables.
+equi join: waq to print snum, sname,cnum,cname to whome they are giving service.(use equi join)
+ 
+waq to print salespeople name,snum and customers name,cnum and the customers they serve.
+SQL> select s.sname, s.snum, c.cname,c.cnum from salespeople s,customer c
+  2  where s.snum=c.snum;
+
+waq to print salespeople name,snum,city and customers name,cnum,city where salespeople and customer have same city
+SQL> select s.sname, s.snum, s.city, c.cname,c.cnum,c.city from salespeople s,customer c
+  2  where s.city=c.city;
+
+Inner Join: Inner join can be used instead of equi join to print data from two tables
+only if they are matching. On keyword is used with Inner join.
+
+waq to print customer name and cnum who placed at least one order.
+SQL> select c.cnum, c.cname, o.onum from customer c inner join orders o on c.cnum=o.cnum;
+
+
+
+VIEWS:  SQL> create view location as select *from salespeople where city='Paris'; //salespeople is the basic people
+
+Views is a virtual tables based on sql statements. It helps to protect the original table.
+even if the records in views get deleted the base table won't get deleted.
+
+Advantages of views: Views get connected to single or multiple tables called base tables. 
+queries are simple, data integrity and security is there.
+
+Purpose of the views is to allow selected people to see the various parts of views.
+
+
+WAQ create a view called newyork which will store all customers who stay in new york.
+
+SQL> create view Newyork as select *from customers where city='New York';
+In the above query we are creating a newyork view. In above query customers table is the base table.
+If base table is removed the query will still exist but cannot be executed.
+Records can onlt be fetched if it matches the contidition of views
+
+SQL> insert into Newyork values(9000,'Niti','London',17301);// This quesry will not store the data in the views
+as it does not satisfy the condition of the view but it will be stored in main table customers.
+
+insert, update, delete through view can happen provided you have permission to do that.
+
+Views can be overwritten if permission is given.
+
+SQL> create or replace view Emp as select fname,basic from employee1 where designation ='Tester';
+
+replace helps to change the logic of the view. But two views cannot exist with the same name.
+
+Drop View: SQL> drop view Emp;
+
+Left Join: It will connect 2 or more tables. Left Join keyword will fetch all values from left table(1st table)
+which matches with right table and where there is not match null values are fetched from right table.
+
+Used to fetch missing values.
+
+WAQ using left join print all customers with all order details who have not placed order yet or have placed.
+
+SQL> select c.cnum, c.cname, o.onum,o.oamount from customer c left join orders o on c.cnum=o.cnum order by c.cname desc;
+
+The above query fetches null values from right join and also performs ordering.
+
+Right Join: Opposite of left join. Right join keyword is used in the query on table 2. This matches with left table(1)
+and print null for left table where there is no match.
+ WAQ to fetch all customer names and oreder numbers.
+
+SQL> select c.cname, o.cnum,o.onum,o.oamount from customer c right join orders o on c.cnum=o.cnum;
+ above query fetches missing values from left side and all values from right table.
+
+Full Outer Join: combination of left and right join. Finds missing values from either table. This helps when
+PK,FK relation is not preset but all tables are part of project. full outer join keyword returns all values from left table and also from right table.
+If there are rows in 1st table not matching 2nd table null values will be printed. Same for right table.
+
+WAQ to print customer name, cnum, and order details if they have given business.
+
+SQL> select c.cname, c.cnum,o.cnum, o.onum,o.oamount from customer c full join orders o on c.cnum=o.cnum;
+
+In full outer join keyword returns all rows from left table  and right table.
+If there are customers who have not placed orders they will also get printed with null values
+and values not matching will also get printed.
+
+Self Join:
+ 
+Joining a table to itself is called self join. Sometimes same table has to be compared to itself. In Oracle a table 
+can be compared to itself as if 2 tables. In self join we rename one table using alias. Used in rare cases where
+a table 20-30 attributes and has to be compared to itself.
+
+WAQ using self join print all ename along with manager names.
+select e.ename,m.ename from emp e,emp m where e.mgr=m.empno;//required by HR dept.
+
+
+
+
+
+SET OPERATORS: Here we will use commands to connect two tables as per the needs of queries. 
+1. Union: It is a set operator used for combining 2 queries. It removes duplicate values from select statements.
+Only one attribute should be used from both tables.
+WAQ to fetch snum from master & child table. Find the missing entries from child table. 
+
+SQL> select snum from salespeople union select snum from customer;// prints unique snum from salespeople and customer table.
+
+2. Unoin all: Used for combining 2 queries. It executes both queries as it is and combined result is printed.
+
+SQL> select snum from salespeople union all select snum from customer;
+
+
+3. Minus Operator: Removes common values from same attributes in both tables.
+WAQ to print all salespeople who are sitting on the bench(not performing)
+SQL> select snum from salespeople minus select snum from customer;// snum who don't have customers.It fetches snum
+who are not in master table.
+
+4. Intersect: it only prints common values from both the tables.
+
+WAQ to print all salespeople who are performing.
+SQL> select snum from salespeople intersect select snum from customer;//Prints snum that are in both table and only once.
+
+Sub-Queries: Query within a query. It is also called nested query or inner query. Used with combination of where
+clause. Sub-query returns data from main query based on condition given within sub-query. This can be used with
+select, update, insert and delete if needed.
+
+Some rules are followed in sub-queries: Sub-query should be enclosed within ().
+Whenever a sub-query is given it should have only one cloumn in select clause. 
+ output-Outer query
+ input-Condition
+
+sub-query may retun more than one row depending on condition so its good to use "in" and "not in"
+in the outer query. Between clause can be present in inner clause but not outer clause.
+
+WAQ to print all order details for customers named 'Lata'.
+
+SQL> select *from orders where cnum in(select cnum from customer where cname='Lata');
+
+ASSIGNMENT -4:
+Q1) WAQ to add a attribute rating to the salespeople table and numeric size 3 
+Q2) See all the records of the salespeople table. 
+Q3) Waq to update rating of all salespeople by 150. 
+Q4) Waq to increase the rating by 110 for all salespeople deployed in London. 
+Q5) Add a attribute dateofjoin for salespeople table. 
+Q6) Remove the attribute dateofjoin for salespeople table. 
+Q7) Print all customers who have are posted in city starting with L or M or both. 
+Q8) Print all customer who are posted in the city where city size is exactly 7. 
+Q9) Write a query where you will print all the salespeople details where cname of upper case and city of lower case. 
+Q10) Create a view called Mumbai where you will store all customer who are residing in london or mumbai. 
+Q11) Execute the view mumbai and also check the structure of view Mumbai. 
+Q12) Using joins print all those salespeople who have not brought business. 
+Q13) Print all those customer no and customer name and snum and sname and print all those customers 
+who do not stay in same city (Use joins). 
+Q14) Using Sub query print all those order details who have placed orders on 14th april, 2018. 
+Q15) Using joins print all those customer who placed orders.
+
+
+SQL> select cname,cnum,city from customer where cnum not in(select cnum from orders);// Print customers who have not placed orders.
+
+NOTE:
+Query within a query within a query is called correlated subquery.
+If there is any correlation between main query and subquery then subquery is called as correlated subquery.
+64 subqueries can be used maximum in SQL.
+
+WAQ sname,comm and print the 4th highest.
+
+SQL> select sname, comm from salespeople s1 where 4=(select count(*) from salespeople where comm>s1.comm);
+
+Sequence: It is used for generating auto numbers on a particular attributes. It is an object in Oracle 12c
+that is used to generate sequence. It is used to generate unique numbers that acts a PK. 
+Sequence may not be linked to a table. There cannot be two sequence of same name in oracle login. 
+Required to generate serial no. in tables which can be used by development team for making reports.
+
+SQL> create sequence idseq;// sequence name should not be same as oracle keywords.
+
+SQL> select idseq.nextval from dual;
+
+   NEXTVAL
+----------
+         1
+
+SQL> select idseq.currval from dual;
+
+   CURRVAL
+----------
+         1
+
+SQL> drop sequence idseq;// delete sequence.
+
+
+Creating sequence and adding it to an attribute:
+SQL> create sequence idseq;
+
+Sequence created.
+
+SQL> insert into sample values(idseq.nextval,'Juli','Paris',null,100);
+
+1 row created.
+
+
+Creating sequence with value limits:(increment value,start value,maximum value)
+
+SQL> create sequence abcd increment by 5 start with 2000 maxvalue 2020;
+
+Sequence created.
+
+SQL> select abcd.nextval from dual;
+
+   NEXTVAL
+----------
+      2000
+
+SQL> select abcd.nextval from dual;
+
+   NEXTVAL
+----------
+      2005
+
+
+Synonyms: similar names given to tables or object. Used for protecting original tables and can be created if we have 
+permission to do so. Updating can be done using synonym.
+WAQ to create a synonym called sa for salespeople.
+
+SQL> create synonym sa for salespeople;
+
+Synonym created.
+
+SQL> desc sa;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SNUM                                      NOT NULL NUMBER(5)
+ SNAME                                              CHAR(15)
+ CITY                                               VARCHAR2(39)
+ COMM                                               NUMBER(13,2)
+ RATINGS                                            NUMBER(10)
+
+Updating using synonym:
+SQL> update sa set comm=comm+66.89;
+
+SQL> drop synonym sa;
+
+Synonym dropped.
+
+SQL> desc sa;
+ERROR:
+ORA-04043: object sa does not exist
+
+Indexing: It can be used on all attributes except PK. It helps to fetch queries faster if the table size is huge.
+WAQ to create index called s_sales on city attribute of salespeople:
+SQL> create index s_sales on salespeople(city);
+
+Index created.
+
+SQL> drop index s_sales;
+
+Index dropped.
+
+
+Indexing should be removed when not needed as it may slow down the work if there are less records in the table.
+
+Table Space: oracle divides the database into one or more logical storage units called tablespace.
+Each Table space contains one or more files called data files. A data file physically stores the tupples of the table/ database as well as indexes 
+on the disc. In short oracle logically stores data in the table space and physically stores in data files connected to data dictionary.
+table space is always online so that all can access tables.
+Data Files have .dbf extensions. These files will be stored in table,index,views and synonyms
+Table space are logical entity in database and cannot be viewd from OS.
+1022 data files(maximum) can be present in table space.
+Table space use:
+Storage size can be controlled allocated to database. 
+Used for partial backup and recovery. 
+WAQ TO CREATE A TABLE SPACE CALLED B_Sales and allocate a file bsales_data dbf to it. 
+
+SQL> create tablespace bsales datafile 'bsales_data.dbf' size 1m; 
+
+SQL> create table memployees (id number(5))tablespace bsales;// a table is associated with table space
+
+
+SQL> select tablespace_name
+  2  bytes/1024/1024 MB
+  3  from dba_free_space
+  4  where tablespace_name='bsales';//It helps to check the free space availabe in tablespace
+
+SQL> select tablespace_name
+  2  bytes/1024/1024 MB
+  3  from dba_free_space //shows tables in tablespace and the space availabe. availabe in system user.
+
+SQL TUNING: its a place where queries are written and it reduces work load. It is helpful when Sql queries are written
+but they are not performing as per standards. It reduces turn around time. 
+examples of tuning: Turn on indexing, use inner join instead of outer join, use in instead of or
+avoid using % in like. Instead of decode use case function.
+
+NOTE: SQL> create table sample as select *from salespeople;// It copies all values from salespeople to sample table
+but the constraints are not copied. These tables are used for sample testing.
+
+CASE FUNCTION: It allows to perform if then else logic in Oracle 12c. It is similar to decode but decode is older than case
+function. 
+
+SQL> select sname, case city
+  2  when 'London' then 'Great-Britain'
+  3  when 'Mumbai' then 'USA'
+  4  else 'Yet to be decided'
+  5  end as Country_Posting from salespeople;
+
+SNAME           COUNTRY_POSTING
+--------------- -----------------
+Puja            Yet to be decided
+Neha            USA
+Diya            Great-Britain
+Jit             Yet to be decided
+Ankita          Great-Britain
+Ojas            Great-Britain
+Josh            Great-Britain
+Avni            Great-Britain
+Jyoti           Yet to be decided
+Rohit           Great-Britain
+Priya           Great-Britain
+
+SNAME           COUNTRY_POSTING
+--------------- -----------------
+Jaya            Great-Britain
+Lucy            Yet to be decided
+Josh            Great-Britain
+Romit           Great-Britain
+Rakhi           Yet to be decided
+Rony            Yet to be decided
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
