@@ -1,0 +1,2179 @@
+PL/SQL:
+ 
+It was developed in 1983 and is os independent. It can be executed from sql *plus interface.
+Pl/sql can be called from external programming language like java & python.
+Its syntax is based on pascal and ada(1st programming language) programming language.
+Apart from oracle it is availabe in ibm db2.
+
+It means programming language structured query language.
+pl/sql has .sql extension
+
+pl/sql programms are called blocks(for Multi-lines commenting with /*...*/,for single line commenting --)
+ and called by java programmes and used in backend
+pl/sql are portable and executed by sql *plus.
+pl/sql can run in windows,mac,linux and unix. We can declare variables in pl/sql with data types.
+It can use oracle tables.
+Pl/SQL has three sections:
+1. Declare section//1st section and is optional. Used to declare variables, cursors, fucn. procedures, 
+& exceptional handling. This part contains temporary variables
+2. Execution Section//2nd section and is compulsory. It consists of the logic of the program. 
+It starts with BEGIN and ends with END
+3. Exceptional Handling//3rd sec. and is optional. Its used rarely when required. Its used for error handlling.
+
+There are 2 types of exception: in-bulit and  user defined
+ 
+to create pl/sql file:
+
+SQL> edit c:\PLSQL\first.sql
+
+to execute 
+
+SQL>@ c:\PLSQL\first.sql
+
+or
+
+SQL>start c:\PLSQL\first.sql
+
+To fect output:
+
+SQL> Set serveroutout on; //Tells oracle whenever pl/sql block is fired 
+display messeges and values. This can be placed before declare section
+SQL> c:\PLSQL\first.sql
+
+
+SQL> set server off;//
+
+
+WA pl/sql block to initialise messege 'Good Morning' & 'I will get bonus' and print it on the screen
+
+PL/SQL BOCKS:
+WA PL/SQL block to take values for number and varchar2 datatype and print.
+
+set serveroutput on;
+
+DECLARE
+ name varchar2(120) := 'John is the next Bill Gates of 2022';
+ age number(20) := 29;
+
+
+BEGIN
+ 
+dbms_output.put_line(name); 
+dbms_output.put_line(age);
+dbms_output.put_line('Testing Code');
+END;
+/
+
+
+OUTPUT:
+SQL> start c:\PLSQL\second.sql
+John is the next Bill Gates of 2022
+29
+Testing Code
+
+
+
+NOTE: execution block should not empty. If logic is not there write null to execute it successfully.
+The reson is that logic can be added later as per the project requirement.
+comment line should be kept at the beginning of the code.
+
+Features of Pl/SQL:
+
+1. integrated with sql
+2. Offers lot of data type
+3. It supports OOPs
+4. It supports web application and server pages
+
+Advantages of PL/SQL:
+
+1. supports both standard and dynamic SQL.
+2. supports DML operation
+3. allows dynamic sol with pl/sql
+
+Block within a block is called nested block. pl/sql allows exception handling and oo data type.
+
+PL/SQL is not a stand-alone programming language.
+it is a tool within the Oracle programming environment.
+SQL *pLUS allows to write sql & pl/sql statements. These are send to the database for processing.
+every pl/sql statement should be terminated with ;
+
+every block in nested block has BEGIN and AND
+
+PL/SQL IDENTIFIERS: variable, exceptions, cursors, procedures and reserved words of oracle.
+Identifiers cannot be more than 30 Characters and are not case sensitive by default
+
+If conditions, loops within pl/sql blocks
+
+@ denotes remote access indicator
+; statement terminator
+:= assignment operator
+||  concatinate operator or double pipe operator // concat() func in sql to join only two statements and in a string func
+
+
+Variable types like char, interger,float etc are called scalar data types.
+
+lob data types
+1. BFILE (4GB) : used to store binary object outside the database within OS 
+
+2. BLOB  (8Tb-128Tb): used to store huge binary data
+
+3. CLOB (8Tb-128Tb): stores character data in database
+
+4. NCLOB (8Tb-128Tb): stores huge data
+
+
+VARIABLES: 
+
+Constraint declaration: assigning values to variables in declare
+
+WAB to add 2 integers and divide as well
+
+|| is used to print values with masseges
+
+
+%Type: it is used for copying datatypes, size from table attributes in temp. variables declared in pl/sql
+block. If there are 4 or 5 attributes then %Type will be repeated that no. of times
+
+tempno salespeople.snum%type;  :tempno is a variable where snum data type and size is copy pasted autonomatically 
+
+WAB to show the sname, comm earned by snum 2000 from salespeople table 
+set serveroutput on;
+DECLARE
+tempno salespeople.snum%type;
+tempname salespeople.sname%type;
+tbasic salespeople.comm%type;
+
+BEGIN
+
+tempno := 2000;
+
+select snum, sname, comm into tempno, tempname, tbasic 
+from salespeople 
+where snum = tempno;
+
+dbms_output.put_line('Salesman_name  ' || tempname ||'Earning  ' || tbasic);// enables to display info,debugging,messages
+
+END;
+
+NOTE:
+Maximum line size is 32767
+Default buffer size is 25000
+
+ASSIGNMENT 1:
+1. WA PL/SQL block to print all the order details of order no. 9004;
+
+2. WAB to initialise cnum 20004 and print cname,city,snum its giving service to.
+
+3. WAB to initialise the snum if the empno exist print snum,sname,comm,city.
+
+4. write a pl/sql block to  intialize the percentage in 
+
+engineering 
+
+percentage is between 40 to 50% 
+
+    you are given 20% scholarship for higher studies
+
+50 to 60 
+
+    you are posted in newyork as   programmer.
+
+60 to 65
+
+    you are given 50% scholarishop for higher studies in usa
+
+65 to 70
+
+   posted as a manager in bangalore
+
+70 to 80
+
+   you are genius so posted as developer in Paris
+
+80 to 90
+
+   full scholarship to study in singapore.
+
+above 90
+
+   do free phd in oxford and also work as progammer in nighshift below 40 
+
+  chill out in beach and study again.
+
+
+5.wap details of snum 4567 using %rowtype and print snum, sname, city, designation
+6.wap to accept no. and print reverse multiplication table of the no. using while loop only.
+format: 5*10=50
+        .....
+        5*9=45    so on.     
+
+
+
+
+
+
+4. WAp to accept age and if age=25 print 'Posted in antarctica'
+if age=35 print 'andaman nicobar island' if age=26 'pl/sql programmer night shift'
+if age=40 print 'Iceland'
+if age=20 print 'Bangalore'
+age=24 print 'chennai'. age 41-45 print 'Gurgaon senior sql manager night shift'
+age<20 'Go back to college to study'
+age>60 'san fransisco plsql programmer'
+     
+
+
+
+Arithmatic Operators:
+
+set serveroutput on;
+ 
+BEGIN
+
+dbms_output.put_line(10-10);
+dbms_output.put_line(10+10);
+dbms_output.put_line(10/10);
+dbms_output.put_line(10*10);
+dbms_output.put_line(10**10);
+
+END;
+
+/
+
+
+OUTPUT: SQL> start c:\PLSQL\operators.sql
+0
+20
+1
+100
+10000000000
+
+PL/SQL procedure successfully completed.
+
+
+WAB where intialise salary of 4 emp and print total;
+IF CONDITION: if(condition)
+        then
+           logic
+              end if;
+
+
+WAB to initialise a variable integer and if it is greater than 50 flash a message
+
+set serveroutput on;
+ DECLARE
+ a number(5) := 100;
+
+BEGIN
+IF(a>50)
+then
+dbms_output.put_line('Greater than 50');
+END IF;
+END;
+/
+
+
+
+WAB to accept value and print result;
+
+set serveroutput on;
+ DECLARE
+ age number(5) := &age;
+
+BEGIN
+
+IF(age>=18)
+then
+dbms_output.put_line('ADULT');
+ELSE
+dbms_output.put_line('MINOR');
+END IF;
+END;
+/
+
+
+RELATIONAL OPERATORS:(=,>=,<=,<>,>,<)
+WAP to initialise a no. If a<200 'Less' a>200 'Greater'
+
+CONSTANT variables retain their values.
+ srating constant number := 3.141592654;
+
+ srating constant number := 3.141592654;
+
+
+
+LOOPS: set of statements repeated till a condition is satisfied
+while loop: wap to print 1-20 using while loop
+set serveroutput on;
+declare
+ a number(2) :=1;
+
+begin
+
+while a<=20
+  loop
+dbms_output.put_line(a);
+a := a+1;
+end loop;
+
+end;
+/
+
+for loop: Powerful loop of plsql programming and helps in using cursors in block
+
+wap block to print no.s from 10 to 20 using for loop
+wap to print 200 to 10 using for loop
+
+
+
+
+
+%rowtype: its a feature to copy entire table structure in a variable. it is more helpful
+for 6-89 attributes
+wap to print snum,sname,comm,city using %rowtype
+
+ed or Edit: Used to modify sql statements
+Anonymous Block used for testing without changing the main program and 
+is not saved permanently. 
+used for checking the logic in project.
+Example:
+SQL> set serveroutput on
+SQL> Begin
+  2  dbms_output.put_line('I am Puja');
+  3  End;
+  4  /
+I am Puja
+
+PL/SQL procedure successfully completed.
+
+wap to accept rating by manager and 
+2 'Promoted'
+4 'Posted in Europe'
+5 'Posted as a pl/sql manager'
+else 'good luck! try nest time'
+
+wap to accept order no and if it exist print order details excluding cnum as
+Onum is ...........
+order date.............
+order amount........
+the person who got the business......
+
+wap to print sname,snum,city,comm where snum = 9006
+
+wap to accept onum and fetch oamount into temp variable 
+if oamount<=9000 increase by 2000 and update it in the table 
+
+wap to accept the salesman number amd if it exist display all details using %rowtype
+
+CASE: switch statement in c is called case in pl/sql
+
+wap to initialise grade and print result accourdingly.
+wap to print even no from 41 to 80;
+1.wap to accept a char and check it is vowel or not.
+2.wap to accept empno if job=null update it as 'Oracle Developer' and make the changes permanent
+else print the city(use %rowtype)
+3. wap to accept a number using for loop the reverse multiplication table of a number(automatic screen clear and system date);
+4. wap to increase the salary by 6000 for emp whose job is salesman and use 2 attributes and count how many got increased
+
+
+CURSOR:
+Oracle creates a memory area for processing sql statements that area is called context area used for processing
+cursor points to the context area 
+Context area is controlled by cursor in pl/sql
+Rows held by cursor is called active set
+Implicit curson: It will always hold one tupple
+Explicit Cursor: It holds more than one tupple
+automatically opened declared and closed by oracle
+Programmers have no control on implicit cursor and is associated 
+with every DML statements
+in pl/sql there are 4 attributes and all returs false:
+%found : return true if insert update and delete are successful else false
+%notfound : opposite of %found and returns true if insert,update, 
+delete is not sucessful
+%isopen : not needed in pl/sql as it returs always false as it is controlled by oracle in implicit cursor
+%rowcount: return no.of rows affected by insert,update and delete
+
+
+
+
+EXPLICIT CURSOR: It is the 2nd type of cursor. It has to be always 
+declared in 
+declare section and it has to be opened and 
+records should be fetched and cursor must be closed.
+All attributes and loops will be used.
+
+wap using explicit cursor print salesman detailes where city in london or bengaluru
+wap to update comm=comm+200 in london and print the no of rows updated 
+
+
+
+WAP using implicit cursor where comm=comm-200 where city='Bangalore' and count
+the no.of people whose incentive is increased
+
+wap to increase comm by 200 and update how many comm got increased
+
+set serveroutput on;
+DECLARE
+
+total number(6);
+
+BEGIN
+
+update salespeople set comm=comm-200;
+if sql%found
+then 
+total := sql%rowcount;
+dbms_output.put_line(total);
+end if;
+end;
+/
+
+EXCEPTIONAL HANDLLING:
+
+used for error handlling. Its the 3rd section and optional. User defined section
+has to be declared in the declare sec. 2 types of exception: user defined and explicit
+Used to trap errors that may come in appliation or when logic is build as per
+requirement. User defined exception is called and caling exception is called raising the
+exception, it should be declared in declare sec. 
+
+wap using in-build exception accept the onum, if it exist display order details
+and if not exist flash a message
+
+wap to print customer name and city using in-build exception for cnum=88. if cnum not found
+use inbuild exception to display that records not present (no_data_found)
+
+wap to accept snum if snum<0 user defined exception should be raised "snum must
+be >0" if snum exists print sname,city, if not then no data found should be raised.
+
+
+
+DECLARE
+
+    e_snum salespeople.snum%type :=&snum;
+
+    e_name  salespeople.sname%type;
+
+    e_city salespeople.city%type;    -- user defined exception
+
+   e_invalid_snum  EXCEPTION; BEGIN    IF e_snum <= 0 THEN
+
+       RAISE e_invalid_snum;
+
+   ELSE
+
+      SELECT  sname, city into  e_name, e_city
+
+      FROM salespeople where snum = e_snum;
+
+      DBMS_OUTPUT.PUT_LINE('Salespeople Name: '||  e_name);
+
+      DBMS_OUTPUT.PUT_LINE('City posted is ' || e_city);    END IF; 
+EXCEPTION    
+WHEN e_invalid_snum
+
+     THEN
+
+         dbms_output.put_line('Snum entered must be greater than 0');   
+ WHEN no_data_found THEN
+
+      dbms_output.put_line('No such Salesperson exist');    
+WHEN others THEN
+
+      dbms_output.put_line('Error contact Oracle Admin'); 
+
+END;
+
+question: WAP to fetch employees who are reporting to manager id 2006
+and print total employees and employee name and number 
+
+
+wap using implicit cursor increase the incentive for all salespeople
+posted in London by 400
+
+wap to fetch all customers posted in hyderabad and update city=vizak
+and print the number of customers transferred. if none are transferred
+print no one transferred
+
+Advantage of explicit cursor:
+it can be executed row by row and update based on validation(check order amount and update customer that is join is used)
+In real world projects use exceptional handlling with cursors.
+
+Explicit cursors are used to update bank and employee records.
+There can be conditions records are fetched from one table &based
+on logic and conditions these records are updated in another table.
+
+Cursors are very fast in case of updation
+
+FORUPDATE WITH CURSORS:
+
+> Oracle provides the FOR UPDATE clause of the SELECT statement 
+in an updatable cursor to perform this kind of locking mechanism.
+
+> whe records are getting updated we want them to be locked.
+This is done using updatable cursors. The cloumns mentioned(1st Syntax) are locked
+and remain locked until cursor is closed or commit or rollback is given
+
+>SYNTAX:
+CURSOR cursor_name IS
+
+    SELECT select_clause
+
+    FROM from_clause
+
+    WHERE where_clause
+
+    FOR UPDATE OF column_name;
+
+
+
+>SYNTAX: CURSOR cursor_name IS
+
+     SELECT select_clause
+
+     FROM from_clause
+
+     WHERE where_clause
+
+     FOR UPDATE;
+
+WAP to fetch all salesman details where comm>400 and
+in cursor check if city='london' comm=comm+4000;
+(records locked during updating)
+
+wap where we will update oamount by 900 for all orders
+who booked orders on 1st oct 2020 by locking them
+also find how many records got updated but fetch all records
+
+
+LIST OF IN-BUILD EXCEPTION/PRE-DEFINED:
+1. TOO_MANY_ROWS //returning more that one record (ORA-01422)
+2. VALUE_ERROR //numeric value is less or mathematical problem occurs (ORA 06502)
+3. ZERO_DIVIDE_ERROR// raised when a no. is divided by zero (ORA 01476)
+4. NO_DATA_FOUND //(ORA 0143)
+5. ACCESS_INTO_NULL // raised when null object is automatically raised a value(ORA 06530)
+6. NOT_LOGGED_ON //(ORA 01012)
+
+CURSOR_ALREADY_OPEN exception; pragma EXCEPTION_INIT(CURSOR_ALREADY_OPEN, '-6511');
+ 
+DUP_VAL_ON_INDEX exception;  pragma EXCEPTION_INIT(DUP_VAL_ON_INDEX, '-0001');
+ 
+TIMEOUT_ON_RESOURCE exception;  pragma EXCEPTION_INIT(TIMEOUT_ON_RESOURCE, '-0051');
+ 
+INVALID_CURSOR exception;  pragma EXCEPTION_INIT(INVALID_CURSOR, '-1001');
+ 
+NOT_LOGGED_ON exception;  pragma EXCEPTION_INIT(NOT_LOGGED_ON, '-1012');
+ 
+LOGIN_DENIED exception;  pragma EXCEPTION_INIT(LOGIN_DENIED, '-1017');
+ 
+NO_DATA_FOUND exception;  pragma EXCEPTION_INIT(NO_DATA_FOUND, 100);
+ 
+ZERO_DIVIDE exception;  pragma EXCEPTION_INIT(ZERO_DIVIDE, '-1476');
+ 
+INVALID_NUMBER exception;  pragma EXCEPTION_INIT(INVALID_NUMBER, '-1722');
+ 
+TOO_MANY_ROWS exception;  pragma EXCEPTION_INIT(TOO_MANY_ROWS, '-1422');
+ 
+STORAGE_ERROR exception;  pragma EXCEPTION_INIT(STORAGE_ERROR, '-6500');
+ 
+PROGRAM_ERROR exception; pragma EXCEPTION_INIT(PROGRAM_ERROR, '-6501');
+ 
+VALUE_ERROR exception; pragma EXCEPTION_INIT(VALUE_ERROR, '-6502');
+ 
+ACCESS_INTO_NULL exception; pragma EXCEPTION_INIT(ACCESS_INTO_NULL, '-6530');
+ 
+COLLECTION_IS_NULL exception; pragma EXCEPTION_INIT(COLLECTION_IS_NULL , '-6531');
+ 
+SUBSCRIPT_OUTSIDE_LIMIT exception; pragma EXCEPTION_INIT(SUBSCRIPT_OUTSIDE_LIMIT,'-6532');
+ 
+SUBSCRIPT_BEYOND_COUNT exception; pragma EXCEPTION_INIT(SUBSCRIPT_BEYOND_COUNT ,'-6533');
+
+
+
+
+
+Using For loop in Explicit Cursors: 
+
+>The speciality of this is, cursor is not need to open,fetch and close
+>The cursor needes to be only declared.
+>This is helpful for processing huge records
+>Advantage of for loop is it keeps processing till record is not found
+>For loop when used with Explicit cursor will be indexing through
+set of records. It gives index numbers to rows and explicitly declares
+index variable. It keeps count of processing records
+>In for loop with explicit cursor, it implicitly declares %rowtype
+& which is used with select statement
+> FOR LOOP will fetch every row from cursor without the user managing manually
+> FOR LOOP is closed automatically when exception is raised or using exit
+
+wap using for loop print cnum,cname of all customers
+wap using for loop to print cnum,cname,city where city in(london,bengaluru)
+and order by cname desc;
+wap to print all employees using for loop posted as saleman,manager,tester,developer. 
+
+
+
+PARAMETERISED CURSOR:
+
+>It means passing a value into the cursor as an arguement
+>It assigns default values to cursors
+>These are static cursors
+>It passes value to a query
+
+wap to print empno,fname for empno=7001;
+WAP to print odate,oamount,cnum for onum=3005 ;
+
+
+
+PROCEDURES:
+
+>It is a sub program or a program within a program
+>2 types: Stand alone Procedure/Independent, written as part of a program
+>Independent procedures can be called by many people
+>Every procedure has 3 parts: Declare, Execution, Exception
+>Procedure may return a value if required
+>Executable section is compulsory in procedure
+>Procedures are used for processing a logic within a project
+>It is reusable program which can be called again and again if required
+and is also a block which is part of schema object in database
+Parameters Mode:
+>IN Mode: Parameter is read only that is values can be passed but cannot be changed(Default Mode)
+>OUT Mode: Parameter is write that is values can be written
+>INOUT MODE: Parameter mode which can read and write both
+>Procedure can be dropped if permission is given 
+wap to create a procedure called greetings to print 'Welcome to oracle'
+SQL> create or replace procedure greetings
+  2  as
+  3  begin
+  4  dbms_output.put_line('Welcome to Oracle');
+  5  end;
+  6  /
+Procedure created.
+SQL> execute greetings;
+Welcome to Oracle
+
+PL/SQL procedure successfully completed.
+
+WAP to create a standalone procedure to print good morning,name,city
+
+SQL> create or replace procedure greetings
+  2  as
+  3  begin
+  4  dbms_output.put_line('Good Morning');
+  5  dbms_output.put_line('Puja Chatterjee');
+  6  dbms_output.put_line('Bengaluru');
+  7  end;
+  8  /
+
+Procedure created.
+
+SQL> execute greetings
+Good Morning
+Puja Chatterjee
+Bengaluru
+
+CREATING PROCEDURE IN PROGRAM/BLOCK:
+
+WAP where u declare user-defined procedure findMin which will recieve
+2 variables and print minimum value:
+
+set serveroutput on;
+DECLARE
+
+a number;
+b number;
+c number;
+
+PROCEDURE findMin( x IN number, y IN number, z OUT number) is
+BEGIN
+if x<y
+then
+z:=x;
+else
+z:=y;
+end if;
+END;
+
+BEGIN
+a:=&a;
+b:=&b;
+
+findMin(a,b,c);
+dbms_output.put_line('Minimum value is: '||c);
+END;
+/
+
+
+NOTE: TO SELECT PROCEDURES:('GREETINGS' in caps)
+
+SQL> select object_name from user_procedures where object_name = 'greetings';
+SQL> select *from User_procedures;
+select procedure_name
+
+          from all_procedures;
+
+TO SEE PROCEDURE CONTENTS
+
+SQL> select text from User_source where Name='GREETINGS' order by Line;
+
+WAP with a user defined procedure Max accept 3 people's age
+and return the highest age
+
+wap using a user defined procedure called squareNum() which will
+recieve a value from a variable and return the square of the number
+
+
+NOTE: SCHEMA: collection of database objects in oracle 
+Schema objects can be created or manipulated
+Schema objects are logical structures created by users
+databse objects are tables, views, sequences, indexes, synonyms
+
+A block can be created and replaced
+
+
+USER DEFINED FUNCTIONS:
+
+>2 types of functions:
+a. In-build
+b. user-defined
+> Function should return a value
+> Standalone function
+> Part of the Block
+> Functions are mostly used for calculations
+> Functions have parameters: IN, OUT, INOUT
+
+wa standalone user-defined func. total_customer to print 
+the number of customers and call it from different program
+
+create or replace function totalCustomer
+return number is
+total number(4) := 0;
+Begin
+select count(*) into total
+from customer;
+return total;
+end;
+
+create a standalone func. tsalespeople to print total
+snum for city='london' and it should be called from a new program
+called report.sql and if successful call func. total_customer
+
+WAP where we will have a user-defined func. within program
+
+set serveroutput on;
+
+DECLARE
+
+a number;
+b number;
+c number;
+
+FUNCTION findMax(x IN number, y IN number)
+RETURN number
+is z number;
+
+BEGIN
+
+if x>y then
+z :=x;
+else
+z:= y;
+
+end if;
+RETURN z;
+end;
+BEGIN
+a := &a;
+b := &b;
+
+c := findMax(a,b); 
+dbms_output.put_line ('The maximum number is: '|| c);
+end;
+/
+
+wap to have a function called findavg() within program accept
+7 subjects marks and student name to find the average in function
+and return percentage;
+
+NOTE: TO CHECK HOW MANY FUNCTION ARE THERE
+SQL> select * from user_objects where object_type = 'FUNCTION';
+
+SQL> select *from dba_objects;
+
+SQL> select text from user_source where name ='TOTALCUSTOMER' order by line; //shows contents of function 
+
+Drop a function : drop function TOTALCUSTOMERS;
+
+
+THE WHERE CURRENT OF clause is an update or delete statement
+>used with explicit cursor with for loop
+>Update empl set sal=sal+400
+ where current of emp; //Here we are using current of pointing to
+cursor name. It wil automatically update the record in the table
+where the pointer is pointing to the cursor and cursor to the record
+The records are locked in above statement for sal attribute and
+loop will run through entire program till all updations are done
+
+wap using WHERE CURRENT OF & CURSOR to increase salary of employees
+by 568.45 for all those who are posted as salesman(sal attribute should be locked for those records which are getting updated)
+After udating print those empno and sal;
+
+
+NOTE: GRANTING PERMISIION
+
+grant execute on object to user; // grant gives the right to complie and execute the procedures and functions or objects
+ user: name of whom we are grantting permission
+
+>grant command works only if DBA gives permission
+
+Revoke execute on object from user
+
+>This command removes or revokes the right from the object
+
+GRANT execute on object_name to public;
+
+>This command gives permission to all public user in oracle server
+
+REVOKE execute on object_name from public;
+
+> This command removes the permission to execute the object from public
+
+wap to create a procedure xyz to pass a number and print if its positive or negetive
+SQL> create or replace procedure xyz
+  2 PROCEDURE xyz(reult in number) as
+  4  begin
+  5  if(result>0)
+  6  then
+  7  dbms_output.put_line('Positive');
+  8  else
+  9  dbms_output.put_line('Negetive');
+ 10  end if;
+ 11  end;
+ 12  /
+
+
+wap to fetch onum,odate,oamount for cnum=2006 by locking oamount
+and increase the oamount by 500 and print how many records got updated
+
+set serveroutput on;
+
+DECLARE
+
+cursor o_orders is
+select *from orders where
+ cnum = 1001 for update of oamount;
+
+Begin
+
+for r in o_orders
+Loop
+Update orders set oamount=oamount+500
+ where current of o_orders;
+
+END LOOP;
+commit;
+
+dbms_output.put_line('Details of updated order amount');
+
+
+for r in o_orders
+Loop
+dbms_output.put_line(r.onum);
+dbms_output.put_line(r.odate);
+dbms_output.put_line(r.oamount);
+END LOOP;
+END;
+/
+
+
+
+
+PACKAGES:
+
+>It is a schema object that contains defination for a group of related
+functionalities(programs and sub programs-procedure,function) 
+>Functions, procedures, and cursors can be in a single package
+>Package has 2 mandatory parts
+
+1. Package specification(HEAD) : It is the interface to the package and it just declare
+type,sub-programs,variables,constants,exception,cursors. It has everything except code
+
+2. Package body/Package defination: It is hidden from outside package
+it has all coding details about procedures or functions which will get
+called
+
+
+>Package can be written as anonymous block or saved in PL/SQL block
+>objects placed in specification are called public objects
+>All sub-programs in package body are private objects
+>once package body is compiled programmers need not know the body of it but can
+call its function and procedure n number of times by many who are 
+part of same network
+
+Advantages of Packages:
+
+1.Packages are easy to understand and interfaces are well defined
+2.It helps in encapsulation of logically related objects in PLSQL
+module
+3. It helps to store group of procedures,variables,data types are
+required
+4. It takes care of data security. The style of package allow u to specify
+which variable and cursors are public and private.
+
+Create a package specification sales_salary. It is going to call user-defined
+procedure called find_sal where snum is linked to sales table 
+
+CREATE PACKAGE sales_salary AS
+Procedure find_sal(s_no salespeople.snum%type);
+END sales_salary;
+/
+ 
+create a package body called sales_salary and this package body
+will have the logic for user defined procedure find_sal to recieve
+snum and if it exist print the incentive earned by salesman. The salesman
+no will be passed from different pL/SQL blocks.
+
+SQL> create or replace package body sales_salary as
+  2  procedure find_sal(s_no salespeople.snum%type) is
+  3  s_salary salespeople.comm%type;
+  4  BEGIN
+  5  select comm into s_salary
+  6  from salespeople
+  7  where snum = s_no;
+  8  dbms_output.put_line('Incentive:'||s_salary);
+  9  END find_sal;
+ 10  END sales_salary;
+ 11  /
+
+wap to accept snum for user call the package pass salesman number
+
+ANONYMOUS BLOCK
+
+SQL> declare
+  2  code salespeople.snum%type := &snum;
+  3  begin
+  4  sales_salary.find_sal(code); //calling the package and its procedure & passing the code
+  5  end;
+  6  /
+
+NOTE:
+In the body the 'code' word must b present to connect the code
+
+TO DROP A PACKAGE body:
+
+SQL>drop package body sales_salary
+
+
+TO DROP THE WHOLE PACKAGE:
+
+SQL>drop package sales_salary --It will drop the package and package body
+
+Re compiling:
+
+SQL> alter package sales_salary compile;
+
+To recompile package body:
+
+SQL> alter package sales_salary compile body;
+
+create a package pack_demo1 and it will have a procedure(spdemo5) and function(fndemo3)
+function will return a number
+
+
+SQL> create package pack_demo1 as
+  2  procedure spDemo5;
+  3  function fnDemo3 return number;
+  4  end pack_demo1;
+  5  /
+
+
+Create the package body will have a procedure and function
+procedure will flash a message 'Procedure in package' 
+function will flash a message 'Function in package' and will return a value 1;
+
+
+SQL> create or replace package body pack_demo1
+  2  as
+  3  procedure spDemo5 is
+  4  begin
+  5  dbms_output.put_line('Procedure in package');
+  6  end spDemo5;
+  7  Function fnDemo3 return number is
+  8  begin
+  9  dbms_output.put_line('Function in package');
+ 10  return 1;
+ 11  end fnDemo3;
+ 12  end pack_demo1;
+ 13  /
+
+
+waq to execute the procedure spDemo5 in the package pack_Demo1
+
+SQL> execute pack_demo1.spDemo5;
+
+waq to execute the function fnDemo3 in the package pack_Demo1
+
+SQL> select pack_demo1.fnDemo3 from dual;
+
+ASSIGNMENT:
+
+1. CREATE a package called JamesBond which will call a procedure ba_amount
+which will print oamount once onum is sent from main block calles sreport.sql
+
+
+2. wap which will have a package of your name. Package will have
+a procedure called my_procedure(this will print the multiplication table of the number accepted) and 
+a function named cube (This will return the cube of the no. sent). 
+
+3.wap to declare varray tokyo to store ratings of 20 emp
+and print the rating in reverse order
+
+4. wap to accept snum and fetch the details and if exists print it
+and raise 3 inbuild exceptions
+i. no_data_found
+ii. too_many_rows
+iii. any_other_errors 
+
+5. write a pl/sql block to accept the department no if the department no exist print the
+name and salary else if too many rows raise expection if data not found print department no does not exist.
+ude if department no 0 or less than that print no negative value allowed.
+any other exception.
+
+OBJECTS:
+
+>plsql supports oops 
+>we can declare objects types
+>object types allow to create obj of real world
+>attributes are properties of obj. 
+>Methods(Functions) are used for behaviour of the object
+>Objects can be created like tables and used in plsql blocks for storing
+records. We can also have master child relation b/w objects if needed
+
+CREATE a object called saddress
+
+SQL> create or replace type saddress as object
+  2  (house_no varchar2(10),
+  3  street varchar2(30),
+  4  city varchar2(20),
+  5  state varchar2(10),
+  6  pincode varchar2(10));
+  7  /
+
+
+EXAMPLE OF OBJECT:
+
+CREATE OR REPLACE TYPE PersonObj AS OBJECT (
+first_name  VARCHAR2(50),
+last_name   VARCHAR2(50),
+date_of_birth  DATE,
+MEMBER FUNCTION getAge RETURN NUMBER
+);
+/
+
+SQL> CREATE OR REPLACE TYPE PersonObj AS OBJECT (
+2    first_name  VARCHAR2(50),
+3    last_name   VARCHAR2(50),
+4    date_of_birth  DATE,
+5    MEMBER FUNCTION getAge RETURN NUMBER
+6  );
+7  / Type created. SQL>
+
+SQL> CREATE OR REPLACE TYPE BODY PersonObj AS
+2    MEMBER FUNCTION getAge RETURN NUMBER AS
+3    BEGIN
+4      RETURN Trunc(Months_Between(Sysdate, date_of_birth)/12);
+5    END getAge;
+6  END;
+7  / Type body created. SQL> CREATE TABLE people (
+
+2    id      NUMBER(10) NOT NULL,
+3    person  PersonObj
+4  ); Table created. SQL>  person  PersonObj
+
+
+SQL> INSERT INTO people
+2  VALUES (1, PersonObj('John','Doe',
+3          TO_DATE('01/01/1999','DD/MM/YYYY'))); 1 row created. SQL> COMMIT; Commit complete. SQL>
+
+SQL> DECLARE
+2    v_person  PersonObj;
+3  BEGIN
+4    v_person := PersonObj('Jane','Doe',
+5                TO_DATE('01/01/1999','DD/MM/YYYY'));
+6    INSERT INTO people VALUES (2, v_person);
+7    COMMIT;
+8  END;
+9  / PL/SQL procedure successfully completed. SQL> SELECT p.id,
+
+  2         p.person.first_name,
+
+  3         p.person.getAge() age
+
+  4  FROM   people p;         ID PERSON.FIRST_NAME                                         AGE
+
+---------- -------------------------------------------------- ----------
+
+         1 John                                                       21
+
+         2 Jane                                                       21 SQL>
+
+
+
+
+
+Dropping the object:
+
+SQL> drop type saddress;
+
+
+
+COLLECTIONS:
+
+
+
+1. VARRAY: set of elements put together inside an variable
+
+PLSQL provides data structure called varray which ia a collection of data
+of particular type. Its also called variable size arrays. It is a part of collection
+
+It is used for storing ordered collection of data. Every element in an array is
+associated with an index.
+
+While declaring varray we need to declare data type
+
+In oracle index always starts from 1v
+
+Varray is 1D and will have null values when declared
+
+Elements must be initialised before refering.
+
+varray can be initialised using constructor
+
+Example:wap to have 2 varrays one will store names and other will store
+marks of 5 students. Using a loop print the marks and names
+
+set serveroutput on;
+DECLARE
+
+type namesarray is VARRAY(5) of varchar2(10);--declaring varray with 5 elements
+type grades is varray(5) of integer;--declaring varray of integer type with 5 elements
+names namesarray;--object of varray or alias for namesarray
+marks grades;--alias for marks or object pointing to varray grades
+total integer;
+
+Begin
+
+names := namesarray('puja','neha','priya','purna','jyoti');
+marks := grades(98,90,60,90,10);
+
+total := names.count; --count function is used within the array to count the elements. It states the no.of times loop will be executed
+
+dbms_output.put_line('Total'||total||'Students');
+
+FOR i in 1..total LOOP
+
+dbms_output.put_line('Students:' ||name(i))||'Marks:'|| marks(i));
+END LOOP;
+END;
+/
+
+2. Index-by Table/Associate Array: Each key is unique and locates corresponding values
+Can be integer or string
+
+wap by using index-by table in a program to fetch customer name
+from customer table 
+
+The code will fetch the attributes cname in index-by table and will
+be associated with a key. Using for loop we print it
+
+set serveroutput on;
+DECLARE
+
+CURSOR c_customers is select cname from customers;   
+
+TYPE c_list IS TABLE of customers.cname%type INDEX BY binary_integer;
+
+name_list c_list;
+
+counter integer :=0;
+
+BEGIN
+
+FOR n IN c_customers
+LOOP
+counter := counter +1;
+name_list(counter) := n.cname;
+dbms_output.put_line(' Customer('||counter||'):' || name_list(counter));
+END LOOP;
+END;
+/
+
+
+
+
+3. Nested Tables: One type of collection. It is an 1D array and have 
+unlimited elements if required unlike array.
+Nested tables can be increased dynamically and can be stored in database column if required
+It simplifies sql operations.
+Some elements can be deleted if needed
+
+> Index-by Table & Nested Tables also called PL/SQL tables
+>varray & nested tables are objects
+> all collections can be associated with plsql blocks and tables
+>while connecting nested table and index-by table with real
+oracle sql table in plsql use %type or %rowtype
+
+Q: wap to create 4 nested tables E_mpno,E_name,E_basic,E_city and initialise
+7 employees and print them in one line using loop
+
+
+PRAGMA:
+
+> It is a line of source coding. It is the action we want
+compiler to take and give an option to the compiler what to do
+
+1. Pragma INLINE: It will automatically call the error if its available
+2. Pragma exception_init: it is always associated with user defined exception
+name with a oracle database error no. We trap the error with an
+exceptional handler
+
+Use these error conditions when no pre defined exceptions are there
+The pragma is a compiler directive
+
+3. Pragma autonomous transactions: it means you instruct the compiler
+to execute a new plsql block
+
+NOTE: third type of exception is un named system exceptions
+
+
+Oracle does not provide a name for un named exception. These errors
+occur rarely. These are always handled using pragma. (-20000 to -20999): error range
+
+DECLARE
+
+exp exception;
+pragma exception_init (exp, -20099); 
+ 
+   n int:=10;
+
+
+ BEGIN
+
+FOR i IN 1..n LOOP 
+
+       dbms_output.put_line(i*i); 
+
+          IF i*i=36 THEN
+
+             RAISE exp; 
+
+          END IF; 
+
+    END LOOP; 
+
+
+ EXCEPTION 
+
+    WHEN exp THEN
+
+       dbms_output.put_line('error handling contact oracle admin and raise a ticket'); 
+
+
+ END; 
+
+ /
+
+
+
+
+
+EXCEPTION FOR TOO_MANY_ROWS:
+
+--wap to print fname when designation is given
+
+set serveroutput on;
+Declare
+name varchar2(50);
+BEGIN
+select fname into name from employee1
+where designation='Manager';
+dbms_output.put_line(name);
+
+EXCEPTION
+
+when too_many_rows then
+dbms_output.put_line('Multiple rows');
+end;
+/
+
+DECLARE
+
+l_name VARCHAR2(50);
+ 
+BEGIN
+
+SELECT ename INTO l_name FROM empl
+
+ WHERE deptno = &d;
+
+ DBMS_OUTPUT.PUT_LINE('Employee Name is : '||l_name);
+ 
+EXCEPTION
+ 
+WHEN NO_DATA_FOUND THEN
+
+ DBMS_OUTPUT.PUT_LINE('Deptno entered is invalid.Please enter a existing Department');
+ 
+WHEN TOO_MANY_ROWS THEN
+
+ DBMS_OUTPUT.PUT_LINE('Your SELECT statement retrieved Multiple Rows.Consider using a Cursor');
+ 
+END;
+
+ /
+
+Block within a block: nested block
+variables in outer block: global variable their values can change
+in nested block if needed but when control comes back to original
+block value remains same
+
+NESTED BLOCK EXAMPLE(global local variables)
+
+
+DECLARE
+
+   -- Global variables 
+
+   num1 number := 200;
+
+   num2 number := 400;  BEGIN 
+
+   dbms_output.put_line('Outer Variable num1: ' || num1);
+
+   dbms_output.put_line('Outer Variable num2: ' || num2);
+
+    DECLARE 
+
+         -- Local variables
+
+         num1 number := 45195; 
+
+         num2 number := 33185;     BEGIN 
+
+      dbms_output.put_line('Inner Variable num1: ' || num1);
+
+      dbms_output.put_line('Inner Variable num2: ' || num2);
+
+   END;       dbms_output.put_line('outer Variable num1: ' || num1);
+
+      dbms_output.put_line('outer Variable num2: ' || num2);
+
+END;
+
+/
+
+NOTES: in-built oracle funtions to trap errors.
+
+– SQLERRM returns character data containing the message
+associated with the error number.
+
+– SQLCODE returns the numeric value for the error code. (You
+can assign it to a NUMBER variable.)
+
+wap using  where initialise employee no. If empno
+is available print the records else trap the error with the message
+with sqlerrm and sqlcode
+
+-- Using SQLCODE and SQLERRM -
+ 
+DECLARE
+
+ l_employee_id NUMBER;
+ 
+BEGIN
+
+SELECT empno INTO l_employee_id
+
+FROM empl WHERE 1 = 2;
+ 
+DBMS_OUTPUT.PUT_LINE('Result is : '||l_employee_id);
+ 
+EXCEPTION
+
+WHEN OTHERS THEN
+
+DBMS_OUTPUT.PUT_LINE('Error encountered is : '||SQLCODE||' with Error Message '||SQLERRM);
+
+END;
+/
+
+
+
+ASSIGNMENT 4:
+
+1)Create a package called jamesbond which will call a procedure baamount will print the order amount once the order number is sent from the main pl/sql block called sreport.sql
+
+2)Write a pl/sql block which will have a package of your name.   Package will have a procedure and a function.
+procedure will print the multiplication table of the number you send it.  Procedure be called mulp and 
+function will be called cube and it will  return the cube of the number you send.
+
+3) Write a pl/sql blocks to declare a varray called tokyo and it will store the rating of 20 employees and print the
+rating back in reverse order.
+
+4)Write a pl/sql block to accept a salesman number and fetch the details and if
+the details exist print record details  else raise 3 in buit expections.
+no data found
+too many rows.
+any other errors in your pl/sql block.
+
+5.  Write a pl/sql block to accept the department no if the department no exist print the
+name and salary else if too many rows raise exception if data not found print department no does not exist.
+and if department no 0 or less than that print no negative value allowed any other exception.
+
+6) Create a block to declare a varray called employees and ratings and store 11 employees names and ratings and
+print their details using a loop.
+
+7)  Create a Nested table called customers and order_amount . Store 7 customers details and fetch it back.
+
+8)  Create a object type called PersonObj which will attributes firstanme, last_name, dob & age.
+
+9)  Create a  block using on PRAGMA AUTONOMOUS_TRANSACTION using customers table.
+
+
+EXCEPTION PROPAGATION: When an exception occurs plsql will look
+for an exception handler in current block and if not found
+it will search in anonymous block,procedure or function associated with
+the block. It will try to raise its own error it not found anywhere 
+
+
+CREATE a procedure p2 to divide the number by zero
+CREATE p1(procedure) which has number 10 and before 10 gets printed
+its calling a procedure p2 and then print the value 10.
+
+The above ques. is a perfect example of procedure calling procedure
+
+
+SQL> create or replace procedure p2 is
+  2  y number;
+  3  begin
+  4  y := 4/0;
+  5  end;
+  6  /
+
+Procedure created.
+
+SQL> create or replace procedure p1 is
+  2  x number;
+  3  begin
+  4  x := 10;
+  5  p2();
+  6  dbms_output.put_line(x);
+  7  end;
+  8  /
+
+Procedure created.
+
+p1 calles p2 in the above code.
+As error is generted and no exceptional handling
+in the procedure oracle will exit the program and the generated error gets
+printed
+
+
+
+Application error:
+
+Application error lets you issue ORA- messages with own meanings.
+Normally these are used with functions in plsql projects
+
+wap to initialise emp_no and print emp_name and if record is not 
+found raise application error
+
+Declare
+I_name varchar2(60);
+
+Begin
+
+select empno into I_name from employee1 where empno = 8000;
+
+EXCEPTION
+
+WHEN NO_DATA_FOUND THEN
+
+raise_application_error(-20101,'Employee No. is invalid.Please enter a existing Employee No.');
+ 
+dbms_output.put_line('Employee No. is invalid.Please enter a existing Employee No.');
+ 
+END;
+
+NOTE: these error messages can be used with procedures or funtions
+
+
+
+
+Where we dont know which exception will get raised when and the program
+has a lot of inner blockes with exception. 
+
+In above case happens we use 'WHEN OTHERS'
+
+
+wap to fetch empno and ename with empno=800. There is another block
+where we print empno for designation 'Manager'
+In main block we enter the ename=Rahul and use exception others 
+ 
+
+DECLARE
+I_name varchar2(60);
+
+BEGIN
+
+BEGIN
+
+SELECT fname into I_name from employee1 where empno=800;
+
+exception
+
+when no_data_found then
+dbms_output.put_line('Empno is invalid');
+
+end;
+
+begin
+
+select fname into I_name from employee1 where designation='Manager';
+
+exception
+
+when too_many_rows then
+dbms_output.put_line('Multiple rows got selected');
+end;
+
+insert into employee1(fname)values('Dr.Rahul');
+
+exception
+
+when others then
+dbms_output.put_line('SQL ERROR'||sqlerrm);
+end;
+/
+
+
+
+Autonomous Pragma Transaction:
+
+create a errorlog file: 
+
+create or replace procedure logerror22
+as
+PRAGMA AUTONOMOUS_TRANSACTION;
+begin
+insert into errorlog values(errorid.nextval,'dff',sysdate);
+commit;
+end;
+/
+
+BEGIN
+INSERT INTO salespeople VALUES(4567,null,null,null);
+INSERT INTO salespeople VALUES(null,'ee','rr',null);
+EXCEPTION
+ WHEN OTHERS THEN
+  logerror22; 
+    rollback;
+END;
+/
+
+
+
+Above procedure will get activated from any block and we use
+PRAGMA AUTONOMOUS_TRANSACTION is an error handling type
+which will keep executing on its own. It will dupm the errors in
+error log file and we will execute our block autonomous.sql
+where we are inserting records into salespeople table
+and if a error gets generated we call the procedure
+logerror22 which will trap the error into error file and these error file is helpful for 
+dBA or Linux team to check on the errors later. Records added with it will not get added
+
+
+
+BULK COLLECTION:
+
+It is a method of fetching data with the help of plsql and sql
+engine collect all rows in one go and keep them in collection.
+Then the sql engine will retrieve each row and process it in memory
+It saves processing time.
+
+BULK BIND:
+
+It is used with insert,update,delete in forall loop(used with bulk collect if needed).
+It process millions of records faster and swith b/w sql and plsql
+engine and saves processing time
+it can be used with all type of collection
+
+FORALL used with bulk bind: Its not a loop but a statement which will
+fetch all records at one go.
+
+wap using for all which is a part of bulk bind to delete records
+with designation='manager' and count how many got deleted
+
+
+
+/* 
+
+example using forall
+
+*/ DECLARE
+
+   TYPE ids_t IS TABLE OF empl.deptno%TYPE;
+l_ids ids_t := ids_t (30, 10); 
+BEGIN
+FORALL l_index IN 1 .. l_ids.COUNT
+DELETE FROM empl
+WHERE deptno = l_ids (l_index);
+DBMS_OUTPUT.put_line (SQL%ROWCOUNT);
+ROLLBACK;
+END;
+/
+
+
+
+EXAMPLE USING BULK: create no. of records in employee table
+
+DECLARE
+
+TYPE employee_info_t is TABLE of employee1%rowtype;--using nested table employee_info_t to coply all attributes from employee table
+I_employees employee_info_t;-- object of the nested table is created
+
+BEGIN
+
+select *  bulk collect into I_employees
+from employee1 where designation='Manager';--In this query we are fetching all the attributes for the records using bulk collect keyword which will get all records of designation manager in one go thus saving processing time when thousands of tuples are present
+
+dbms_output.put_line(I_employees.COUNT);--we use count function to print the number of records
+END;
+/
+
+wap using explicit cursor with a for loop where u will fetch all records
+from salespeople who are posted in paris,london,new york
+increace comm by 900.90 by current of statement. Use another loop
+to print total no.of rows got updated 
+
+
+SUBTYPES: different names for variables that is the same variable is referred using
+different names
+
+
+TRIGGERS:
+These are stored programs which is fired automatically
+when event occurs. These are written to be executed in many events.
+Triggers act on sql tables
+Triggers occur in 3 events: before and after insert, delete & update
+
+create or replace trigger comm_diff
+before delete or insert or update on salespeople
+for each row
+when(new.snum>0)
+declare
+insentive_diff number;
+begin
+insentive_diff := new.comm- :old.comm;
+dbms_output.put_line('insentive differences is '||insentive_diff);
+end;
+/
+
+--this triggered is fired when insert, update or delete occurs
+
+
+
+
+
+
+
+
+--Emp TABLE:
+
+ CREATE TABLE EMP(EMPNO NUMBER(4) NOT NULL,
+
+         ENAME VARCHAR2(10),
+
+         JOB VARCHAR2(9),
+
+         MGR NUMBER(4),
+
+         HIREDATE DATE,
+
+         SAL NUMBER(7, 2),
+
+         COMM NUMBER(7, 2),
+
+         DEPTNO NUMBER(2));
+ 
+INSERT INTO EMP VALUES
+
+         (7369, 'SMITH',  'CLERK',     7902,
+
+         TO_DATE('17-DEC-1980', 'DD-MON-YYYY'),  800, NULL, 20);
+
+ INSERT INTO EMP VALUES
+
+         (7499, 'ALLEN',  'SALESMAN',  7698,
+
+         TO_DATE('20-FEB-1981', 'DD-MON-YYYY'), 1600,  300, 30);
+
+ INSERT INTO EMP VALUES
+
+         (7521, 'WARD',   'SALESMAN',  7698,
+
+         TO_DATE('22-FEB-1981', 'DD-MON-YYYY'), 1250,  500, 30);
+
+ INSERT INTO EMP VALUES
+
+         (7566, 'JONES',  'MANAGER',   7839,
+
+         TO_DATE('2-APR-1981', 'DD-MON-YYYY'),  2975, NULL, 20);
+
+ INSERT INTO EMP VALUES
+
+         (7654, 'MARTIN', 'SALESMAN',  7698,
+
+         TO_DATE('28-SEP-1981', 'DD-MON-YYYY'), 1250, 1400, 30);
+
+ INSERT INTO EMP VALUES
+
+         (7698, 'BLAKE',  'MANAGER',   7839,
+
+         TO_DATE('1-MAY-1981', 'DD-MON-YYYY'),  2850, NULL, 30);
+
+ INSERT INTO EMP VALUES
+
+         (7782, 'CLARK',  'MANAGER',   7839,
+
+         TO_DATE('9-JUN-1981', 'DD-MON-YYYY'),  2450, NULL, 10);
+
+ INSERT INTO EMP VALUES
+
+         (7788, 'SCOTT',  'ANALYST',   7566,
+
+         TO_DATE('09-DEC-1982', 'DD-MON-YYYY'), 3000, NULL, 20);
+
+ INSERT INTO EMP VALUES
+
+         (7839, 'KING',   'PRESIDENT', NULL,
+
+         TO_DATE('17-NOV-1981', 'DD-MON-YYYY'), 5000, NULL, 10);
+
+ INSERT INTO EMP VALUES
+
+         (7844, 'TURNER', 'SALESMAN',  7698,
+
+         TO_DATE('8-SEP-1981', 'DD-MON-YYYY'),  1500,    0, 30);
+
+ INSERT INTO EMP VALUES
+
+         (7876, 'ADAMS',  'CLERK',     7788,
+
+         TO_DATE('12-JAN-1983', 'DD-MON-YYYY'), 1100, NULL, 20);
+
+ INSERT INTO EMP VALUES
+
+         (7900, 'JAMES',  'CLERK',     7698,
+
+         TO_DATE('3-DEC-1981', 'DD-MON-YYYY'),   950, NULL, 30);
+
+ INSERT INTO EMP VALUES
+
+         (7902, 'FORD',   'ANALYST',   7566,
+
+         TO_DATE('3-DEC-1981', 'DD-MON-YYYY'),  3000, NULL, 20);
+
+ INSERT INTO EMP VALUES
+
+         (7934, 'MILLER', 'CLERK',     7782,
+
+         TO_DATE('23-JAN-1982', 'DD-MON-YYYY'), 1300, NULL, 10);
+ 
+--Designation Masters
+ 
+CREATE TABLE Designation_Masters(
+
+ Design_Code NUMBER(3) PRIMARY KEY,
+
+ Design_Name VARCHAR2(50) UNIQUE);
+ 
+INSERT INTO designation_masters VALUES(101,'HOD');
+
+ INSERT INTO designation_masters VALUES(102,'Professor');
+
+ INSERT INTO designation_masters VALUES(103,'Reader');
+
+ INSERT INTO designation_masters VALUES(104,'Sr.Lecturer');
+
+ INSERT INTO designation_masters VALUES(105,'Lecturer');
+
+ INSERT INTO designation_masters VALUES(106,'Director');
+ 
+--Department Masters
+ 
+CREATE TABLE Department_Masters(
+
+ Dept_code NUMBER(2) PRIMARY KEY,
+
+ Dept_Name VARCHAR2(50) UNIQUE);
+ 
+INSERT INTO department_masters VALUES(10,'Computer Science');
+
+ INSERT INTO department_masters VALUES(20,'Electricals');
+
+ INSERT INTO department_masters VALUES(30,'Electronics');
+
+ INSERT INTO department_masters VALUES(40,'Mechanics');
+
+ INSERT INTO department_masters VALUES(50,'Robotics');
+ 
+--Student Masters
+
+ CREATE TABLE Student_Masters(
+
+ Student_Code NUMBER(6) PRIMARY KEY,
+
+ Student_Name VARCHAR2(50) NOT NULL,
+
+ Dept_Code NUMBER(2) REFERENCES Department_Masters(dept_code),
+
+ Student_Dob DATE,
+
+ Student_Address VARCHAR2(240));
+ 
+INSERT INTO student_masters VALUES(1001,'Amit',10,'11-Jan-80','chennai');
+
+ INSERT INTO student_masters VALUES(1002,'Ravi',10,'1-Nov-81','New Delhi');
+
+ INSERT INTO student_masters VALUES(1003,'Ajay',20,'13-Jan-82',null);
+
+ INSERT INTO student_masters VALUES(1004,'Raj',30,'14-Jan-79','Mumbai');
+
+ INSERT INTO student_masters VALUES(1005,'Arvind',40,'15-Jan-83','Bangalore');
+
+ INSERT INTO student_masters VALUES(1006,'Rahul',50,'16-Jan-81','Delhi');
+
+ INSERT INTO student_masters VALUES(1007,'Mehul',20,'17-Jan-82','Chennai');
+
+ INSERT INTO student_masters VALUES(1008,'Dev',10,'11-Mar-81','Bangalore');
+
+ INSERT INTO student_masters VALUES(1009,'Vijay',30,'19-Jan-80','Bangalore');
+
+ INSERT INTO student_masters VALUES(1010,'Rajat',40,'20-Jan-80','Bangalore');
+
+ INSERT INTO student_masters VALUES(1011,'Sunder',50,'21-Jan-80','Chennai');
+
+ INSERT INTO student_masters VALUES(1012,'Rajesh', 30,'22-Jan-80',null);
+
+ INSERT INTO student_masters VALUES(1013,'Anil',20,'23-Jan-80','Chennai');
+
+ INSERT INTO student_masters VALUES(1014,'Sunil',10,'15-Feb-85',    null);
+
+ INSERT INTO student_masters VALUES(1015,'Kapil',40,'18-Mar-81','Mumbai');
+
+ INSERT INTO student_masters VALUES(1016,'Ashok',40,'26-Nov-80',null);
+
+ INSERT INTO student_masters VALUES(1017,'Ramesh',30,'27-Dec-80',null);
+
+ INSERT INTO student_masters VALUES(1018,'Amit Raj',50,'28-Sep-80','New Delhi');
+
+ INSERT INTO student_masters VALUES(1019,'Ravi Raj',50,'29-May-81','New Delhi');
+
+ INSERT INTO student_masters VALUES(1020,'Amrit',10,'11-Nov-80',null);
+
+ INSERT INTO student_masters VALUES(1021,'Sumit',20,'1-Jan-80','Chennai');
+ 
+ 
+--Student Marks
+
+ CREATE TABLE Student_Marks(
+
+ Student_Code NUMBER (6) REFERENCES student_Masters(student_code),
+
+ Student_Year NUMBER not null,
+
+ Subject1 NUMBER (3),
+
+ Subject2 NUMBER (3),
+
+ Subject3 NUMBER (3));
+
+ INSERT INTO student_marks VALUES(1001,    2010,    55,45,78);
+
+ INSERT INTO student_marks VALUES(1002,    2010,    66,74,88);
+
+ INSERT INTO student_marks VALUES(1003,    2010,    87,54,65);
+
+ INSERT INTO student_marks VALUES(1004,    2010,    65,64,90);
+
+ INSERT INTO student_marks VALUES(1005,    2010,    78,88,65);
+
+ INSERT INTO student_marks VALUES(1006,    2010,    65,86,54);
+
+ INSERT INTO student_marks VALUES(1007,    2010,    67,79,49);
+
+ INSERT INTO student_marks VALUES(1008,    2010,    72,55,55);
+
+ INSERT INTO student_marks VALUES(1009,    2010,    71,59,58);
+
+ INSERT INTO student_marks VALUES(1010,    2010,    68,44,92);
+
+ INSERT INTO student_marks VALUES(1011,    2010,    89,96,78);
+
+ INSERT INTO student_marks VALUES(1012,    2010,    78,56,55);
+
+ INSERT INTO student_marks VALUES(1013,    2010,    75,58,65);
+
+ INSERT INTO student_marks VALUES(1014,    2010,    73,74,65);
+
+ INSERT INTO student_marks VALUES(1015,    2010,    66,45,74);
+
+ INSERT INTO student_marks VALUES(1016,    2010,    68,78,74);
+
+ INSERT INTO student_marks VALUES(1017,    2010,    69,44,52);
+
+ INSERT INTO student_marks VALUES(1018,    2010,    65,78,56);
+
+ INSERT INTO student_marks VALUES(1019,    2010,    78,58,74);
+
+ INSERT INTO student_marks VALUES(1020,    2010,    45,55,65);
+
+ INSERT INTO student_marks VALUES(1021,    2010,    78,79,78);
+
+ INSERT INTO student_marks VALUES(1001,    2011,    68,44,92);
+
+ INSERT INTO student_marks VALUES(1002,    2011,    89,96,78);
+
+ INSERT INTO student_marks VALUES(1003,    2011,    78,56,55);
+
+ INSERT INTO student_marks VALUES(1004,    2011,    75,58,65);
+
+ INSERT INTO student_marks VALUES(1005,    2011,    73,74,65);
+
+ INSERT INTO student_marks VALUES(1006,    2011,    66,45,74);
+
+ INSERT INTO student_marks VALUES(1007,    2011,    68,78,74);
+
+ INSERT INTO student_marks VALUES(1008,    2011,    69,44,52);
+
+ INSERT INTO student_marks VALUES(1009,    2011,    65,78,56);
+
+ INSERT INTO student_marks VALUES(1010,    2011,    78,58,74);
+
+ INSERT INTO student_marks VALUES(1011,    2011,    45,55,65);
+
+ INSERT INTO student_marks VALUES(1012,    2011,    78,79,78);
+
+ INSERT INTO student_marks VALUES(1013,    2011,    66,74,88);
+
+ INSERT INTO student_marks VALUES(1014,    2011,    65,64,90);
+
+ INSERT INTO student_marks VALUES(1015,    2011,    78,88,65);
+
+ INSERT INTO student_marks VALUES(1016,    2011,    65,86,54);
+
+ INSERT INTO student_marks VALUES(1017,    2011,    67,79,49);
+
+ INSERT INTO student_marks VALUES(1018,    2011,    72,55,55);
+
+ INSERT INTO student_marks VALUES(1019,    2011,    71,59,58);
+
+ INSERT INTO student_marks VALUES(1020,    2011,    55,45,78);
+
+ INSERT INTO student_marks VALUES(1021,    2011,    87,54,65);
+
+ --Data to be repeated for 2 more years
+ 
+--Staff Masters
+
+ CREATE TABLE staff_Masters(
+
+ Staff_Code number(8) PRIMARY KEY,
+
+ Staff_Name varchar2(50) NOT NULL,
+
+ Design_Code REFERENCES Designation_Masters(design_code),
+
+ Dept_Code REFERENCES Department_Masters(dept_code),
+
+ Staff_dob DATE,
+
+ Hiredate DATE,
+
+ Mgr_code NUMBER(8),
+
+ Staff_sal NUMBER (10,2),
+
+ Staff_address VARCHAR2(240));
+ 
+INSERT INTO staff_masters 
+
+ VALUES(100001,'Arvind',102,30,'15-Jan-80','15-Jan-03',100006,17000,'Bangalore');
+
+ INSERT INTO staff_masters 
+
+ VALUES(100002,'Shyam',102,20,'18-Feb-80','17-Feb-02',100007,20000,'Chennai');
+
+ INSERT INTO staff_masters 
+
+ VALUES(100003,'Mohan',102,10,'23-Mar-80','19-Jan-02',100006,24000,'Mumbai');
+
+ INSERT INTO staff_masters 
+
+ VALUES(100004,'Anil',102,20,'22-Apr-77','11-Mar-01',100006,20000,'Hyderabad');
+
+ INSERT INTO staff_masters
+
+ VALUES(100005,'John',106,10,'22-May-76','21-Jan-01',100007,32000,'Bangalore');
+
+ INSERT INTO staff_masters 
+
+ VALUES(100006,'Allen',103,30,'22-Jan-80','23-Apr-01',100005,42000,'Chennai');
+ 
+
+
+ INSERT INTO staff_masters 
+
+ VALUES(100007,'Smith',103,20,'19-Jul-73','12-Mar-02',100005,62000,'Mumbai');
+
+ INSERT INTO staff_masters 
+
+ VALUES(100008,'Raviraj',102,40,'17-Jun-80','11-Jan-03',100006,18000,'Bangalore');
+
+ INSERT INTO staff_masters
+
+ VALUES(100009,'Rahul',102,20,'16-Jan-78','11-Dec-03',100006,22000,'Hyderabad');
+
+ INSERT INTO staff_masters 
+
+ VALUES(100010,'Ram',103,30,'17-Jan-79','17-Jan-02',100007,32000,'Bangalore');
+ 
+--Book Masters
+
+ CREATE TABLE Book_Masters(
+
+ Book_code NUMBER(10) PRIMARY KEY,
+
+ Book_name VARCHAR2(50) NOT NULL,
+
+ Book_pub_year NUMBER,
+
+ Book_pub_author VARCHAR2 (50) NOT NULL);
+ 
+
+
+ INSERT INTO book_masters VALUES(10000001,'Let Us C++',2000,'Yashavant Kanetkar');
+ 
+INSERT INTO book_masters VALUES(10000002,'Mastersing VC++',2005,'P.J Allen');
+ 
+INSERT INTO book_masters VALUES(10000003,'JAVA Complete Reference',2004,'H.Schild');
+ 
+INSERT INTO book_masters VALUES(10000004,'J2EE Complete Reference',2000,'H. Schild');
+ 
+INSERT INTO book_masters VALUES(10000005,'Relational DBMS',2000,'B.C. Desai');
+ 
+INSERT INTO book_masters VALUES(10000006,'Let Us C',2000, 'Yashavant Kanetkar');
+ 
+INSERT INTO book_masters VALUES(10000007,'Intoduction To Algorithams',2001,'Cormen');
+ 
+INSERT INTO book_masters VALUES(10000008,'Computer Networks',2000,'Tanenbaum');
+ 
+INSERT INTO book_masters VALUES(10000009,'Introduction to O/S',2001,'Millan');
+ 
+--Book Transactions
+
+ CREATE TABLE Book_transactions(
+
+ Book_code NUMBER(10) REFERENCES Book_Masters(Book_code),
+
+ Student_code NUMBER(6) REFERENCES Student_Masters(student_code),
+
+ Staff_code number(8) REFERENCES Staff_Masters(staff_code),
+
+ Book_issue_Date date not null,
+
+ Book_expected_return_date date not null,
+
+ Book_actual_return_date date);
+ 
+INSERT INTO book_transactions 
+
+ VALUES(10000006,1012,NULL,'02-Feb-2011','09-Feb-2011',NULL);
+ 
+INSERT INTO book_transactions 
+
+ VALUES(10000008,NULL,100006,'10-Mar-2011','17-Mar-2011','15-Mar-2011');
+ 
+INSERT INTO book_transactions 
+
+ VALUES(10000009,NULL,100010,'01-Apr-2011','08-Apr-2011','10-Apr-2011');
+ 
+INSERT INTO book_transactions 
+
+ VALUES(10000004,1015,NULL,'12-Feb-2011','19-Feb-2011',NULL);
+ 
+
+
+ INSERT INTO book_transactions 
+
+ VALUES(10000005,NULL,100007,'14-Mar-2011','21-Mar-2011','21-Mar-2011');
+ 
+INSERT INTO book_transactions 
+
+ VALUES(10000007,NULL,100007,'01-Apr-2011','07-Apr-2011','06-Apr-2011');
+ 
+INSERT INTO book_transactions 
+
+ VALUES(10000007,NULL,100006,'01-Apr-2010','07-Apr-2010','06-Apr-2010');
+
+ INSERT INTO book_transactions 
+
+ VALUES(10000005,1009,NULL,'31-May-2011','08-JUN-2011','08-JUN-2011');
+
+
+
+
+CONTACT: training@goodoldtraining.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
